@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Password Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1e293b;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    label {
+      font-size: 16px;
+    }
+
+    input[type="number"] {
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      width: 80px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #334155;
+      border-radius: 8px;
+      font-size: 18px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Secure Password Generator</h1>
+    <form method="POST">
+      <label for="length">Password Length:</label><br>
+      <input type="number" name="length" id="length" value="12" min="6" max="32"><br>
+      <button type="submit">Generate Password</button>
+    </form>
+
+    {% if password %}
+    <div class="result" id="password-box">
+      <strong>Generated Password:</strong><br>
+      <span id="password-text">{{ password }}</span>
+      <br><br>
+      <button type="button" onclick="copyPassword()">📋 Copier</button>
+      <p id="copy-message" style="font-size: 14px; color: lightgreen; display: none;">Mot de passe copié !</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+  function copyPassword() {
+    const password = document.getElementById("password-text").innerText;
+    navigator.clipboard.writeText(password).then(() => {
+      document.getElementById("copy-message").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("copy-message").style.display = "none";
+      }, 2000);
+    });
+  }
+  </script>
+</body>
+</html>
